@@ -4,16 +4,7 @@ export default function Lost0x01Site() {
       title: "RAIccoon",
       description: "AI-focused cybersecurity skill set and tooling experiments.",
       tags: ["AI", "Cybersecurity", "Automation"],
-    },
-    {
-      title: "Red Team Labs",
-      description: "Hands-on offensive security labs, writeups, and simulations.",
-      tags: ["Red Team", "CTF", "Research"],
-    },
-    {
-      title: "Open Source Tools",
-      description: "Utilities, scripts, and custom workflows shared with the community.",
-      tags: ["Python", "GitHub", "Security"],
+      link: "https://github.com/lost0x01/RAIccoon-Reports",
     },
   ];
 
@@ -66,7 +57,7 @@ export default function Lost0x01Site() {
             </a>
 
             <a
-              href="https://github.com"
+              href="https://github.com/lost0x01"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-2xl border border-green-500/40 hover:border-green-300 hover:text-white transition"
@@ -103,9 +94,9 @@ export default function Lost0x01Site() {
 
               <div className="grid grid-cols-2 gap-2 text-green-300">
                 <div>RAIccoon/</div>
-                <div>labs/</div>
-                <div>automation/</div>
-                <div>tooling/</div>
+                <div>experiments/</div>
+                <div>research/</div>
+                <div>security/</div>
               </div>
 
               <p>
@@ -164,9 +155,12 @@ export default function Lost0x01Site() {
 
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
           {projects.map((project) => (
-            <div
+            <a
               key={project.title}
-              className="rounded-3xl border border-green-500/20 bg-zinc-950 p-6 hover:border-green-400 hover:-translate-y-1 transition duration-300"
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-3xl border border-green-500/20 bg-zinc-950 p-6 hover:border-green-400 hover:-translate-y-1 transition duration-300 cursor-pointer block"
             >
               <div className="flex items-center justify-between mb-5">
                 <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
@@ -193,7 +187,7 @@ export default function Lost0x01Site() {
                   </span>
                 ))}
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>
@@ -222,7 +216,7 @@ export default function Lost0x01Site() {
             </a>
 
             <a
-              href="https://github.com"
+              href="https://github.com/lost0x01"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-2xl border border-green-500/30 hover:border-green-300 hover:text-white transition"
