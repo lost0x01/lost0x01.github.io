@@ -209,7 +209,7 @@ export default function Lost0x01Site() {
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a
-              href="mailto:hello@lost0x01.com"
+              href="mailto:rob@lost0x01.com"
               className="px-6 py-3 rounded-2xl border border-green-400 bg-green-400 text-black font-bold hover:bg-white transition"
             >
               Contact
