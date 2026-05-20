@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/**'
+      - 'index.html'
+      - 'package*.json'
+      - 'vite.config.js'
+      - 'tailwind.config.js'
+      - 'postcss.config.js'
 
 permissions:
   contents: write
@@ -28,9 +35,29 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: lost0x01.com
+      - name: Copy built assets to /assets and update index.html
+        run: |
+          # Clear old bundles from /assets (keep any static files if added later)
+          rm -f assets/index-*.js assets/index-*.css
+
+          # Copy new bundles
+          cp dist/assets/index-*.js assets/
+          cp dist/assets/index-*.css assets/
+
+          # Get the new filenames
+          JS_FILE=$(ls dist/assets/index-*.js | xargs basename)
+          CSS_FILE=$(ls dist/assets/index-*.css | xargs basename)
+
+          # Update index.html to reference new filenames
+          sed -i "s|src=\"/assets/index-[^\"]*\.js\"|src=\"/assets/${JS_FILE}\"|g" index.html
+          sed -i "s|href=\"/assets/index-[^\"]*\.css\"|href=\"/assets/${CSS_FILE}\"|g" index.html
+
+          echo "Updated index.html to reference: $JS_FILE and $CSS_FILE"
+
+      - name: Commit and push updated assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/ index.html
+          git diff --staged --quiet || git commit -m "chore: rebuild assets [skip ci]"
+          git push
