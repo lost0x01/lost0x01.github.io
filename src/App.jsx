@@ -4,7 +4,13 @@ export default function Lost0x01Site() {
       title: "RAIccoon",
       description: "AI-focused cybersecurity skill set and tooling experiments.",
       tags: ["AI", "Cybersecurity", "Automation"],
-      link: "https://github.com/lost0x01/RAIccoon-Reports",
+      link: "https://github.com/lost0x01/RAIccoon",
+    },
+    {
+      title: "RAIccoon Reports",
+      description: "Threat intelligence reports and analysis from RAIccoon.",
+      tags: ["Threat Intel", "Analysis", "Reports"],
+      link: "https://github.com/lost0x01/RAIccoon_Reports",
     },
     {
       title: "CTF Write-Ups",
