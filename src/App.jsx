@@ -6,6 +6,12 @@ export default function Lost0x01Site() {
       tags: ["AI", "Cybersecurity", "Automation"],
       link: "https://github.com/lost0x01/RAIccoon-Reports",
     },
+    {
+      title: "CTF Write-Ups",
+      description: "Detailed write-ups and solutions from CTF competitions and security challenges.",
+      tags: ["CTF", "Security", "Research"],
+      link: "https://github.com/lost0x01/CTF-Write-Ups",
+    },
   ];
 
   return (
@@ -94,7 +100,7 @@ export default function Lost0x01Site() {
 
               <div className="grid grid-cols-2 gap-2 text-green-300">
                 <div>RAIccoon/</div>
-                <div>experiments/</div>
+                <div>ctf-writeups/</div>
                 <div>research/</div>
                 <div>security/</div>
               </div>
