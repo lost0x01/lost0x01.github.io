@@ -131,11 +131,11 @@ export default function Lost0x01Site() {
           <div className="grid grid-cols-2 gap-4">
             {[
               "Cybersecurity",
+              "Threat Hunting",
+              "Malware Analysis",
               "AI Tooling",
               "Automation",
               "Open Source",
-              "Red Teaming",
-              "Creative Tech",
             ].map((skill) => (
               <div
                 key={skill}
