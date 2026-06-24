@@ -32,14 +32,43 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Build from source entry
+        run: |
+          cp index.html /tmp/lost0x01-pages-index.html
+          cat > index.html <<'HTML'
+          <!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta name="description" content="lost0x01 - Cybersecurity, AI, and Open Source Projects" />
+              <meta name="theme-color" content="#000000" />
+              <title>lost0x01 - Cyber + AI Systems</title>
+            </head>
+            <body>
+              <div id="root"></div>
+              <script type="module" src="/src/main.jsx"></script>
+            </body>
+          </html>
+          HTML
+          npm run build
+          mv /tmp/lost0x01-pages-index.html index.html
 
-      - name: Preserve custom domain
-        run: cp CNAME dist/CNAME
+      - name: Copy built assets to /assets and update index.html
+        run: |
+          rm -f assets/index-*.js assets/index-*.css
+          cp dist/assets/index-*.js assets/
+          cp dist/assets/index-*.css assets/
+          JS_FILE=$(ls dist/assets/index-*.js | xargs basename)
+          CSS_FILE=$(ls dist/assets/index-*.css | xargs basename)
+          sed -i "s|src=\"/assets/index-[^\"]*\.js\"|src=\"/assets/${JS_FILE}\"|g" index.html
+          sed -i "s|href=\"/assets/index-[^\"]*\.css\"|href=\"/assets/${CSS_FILE}\"|g" index.html
+          echo "Updated index.html to reference: $JS_FILE and $CSS_FILE"
 
-      - name: Deploy to gh-pages
+      - name: Commit and push updated assets
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          npx gh-pages -d dist -u "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          git add assets/ index.html
+          git diff --staged --quiet || git commit -m "chore: rebuild assets [skip ci]"
+          git push
