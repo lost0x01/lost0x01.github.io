@@ -13,10 +13,10 @@ export default function Lost0x01Site() {
       link: "https://github.com/lost0x01/RAIccoon_Reports",
     },
     {
-      title: "CTF Write-Ups",
-      description: "Detailed write-ups and solutions from CTF competitions and security challenges.",
-      tags: ["CTF", "Security", "Research"],
-      link: "https://github.com/lost0x01/CTF-Write-Ups",
+      title: "TRASHcan",
+      description: "Malware analysis sandbox tooling and workflows for safer sample triage.",
+      tags: ["Malware Analysis", "Sandbox", "Automation"],
+      link: "https://github.com/lost0x01/TRASHcan",
     },
   ];
 
@@ -106,7 +106,7 @@ export default function Lost0x01Site() {
 
               <div className="grid grid-cols-2 gap-2 text-green-300">
                 <div>RAIccoon/</div>
-                <div>ctf-writeups/</div>
+                <div>TRASHcan/</div>
                 <div>research/</div>
                 <div>security/</div>
               </div>
@@ -221,7 +221,7 @@ export default function Lost0x01Site() {
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a
-              href="mailto:rob@lost0x01.com"
+              href="mailto:contact@lost0x01.com"
               className="px-6 py-3 rounded-2xl border border-green-400 bg-green-400 text-black font-bold hover:bg-white transition"
             >
               Contact
