@@ -16,7 +16,7 @@ export default function Lost0x01Site() {
       title: "TRASHcan",
       description: "Malware analysis sandbox tooling and workflows for safer sample triage.",
       tags: ["Malware Analysis", "Sandbox", "Automation"],
-      link: "https://github.com/lost0x01/TRASHcan",
+      link: "https://github.com/lost0x01/TRASHcan_Local_Sandbox",
     },
   ];
 
