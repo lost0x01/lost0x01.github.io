@@ -1,6 +1,12 @@
 export default function Lost0x01Site() {
   const projects = [
     {
+      title: "Tracecoon",
+      description: "Guided threat-hunt caseboard demo built to make investigation flow easier for junior analysts.",
+      tags: ["Threat Hunting", "UX", "Demo"],
+      link: "/tracecoon/",
+    },
+    {
       title: "RAIccoon",
       description: "AI-focused cybersecurity skill set and tooling experiments.",
       tags: ["AI", "Cybersecurity", "Automation"],
@@ -66,6 +72,13 @@ export default function Lost0x01Site() {
               className="px-6 py-3 rounded-2xl border border-green-400 bg-green-400 text-black font-bold hover:bg-white transition"
             >
               View Projects
+            </a>
+
+            <a
+              href="/tracecoon/"
+              className="px-6 py-3 rounded-2xl border border-cyan-400/40 text-cyan-200 hover:border-cyan-300 hover:text-white transition"
+            >
+              Launch Tracecoon Demo
             </a>
 
             <a
