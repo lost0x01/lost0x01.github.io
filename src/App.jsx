@@ -24,7 +24,28 @@ export default function Lost0x01Site() {
       tags: ["Malware Analysis", "Sandbox", "Automation"],
       link: "https://github.com/lost0x01/TRASHcan_Local_Sandbox",
     },
+    {
+      title: "Operations Portal Demo",
+      description: "A sanitized command-center preview for requests, SOAR cases, playbooks, documents, costs, and deliverables.",
+      tags: ["Portal", "SOAR", "Demo"],
+      link: "#portal-demo",
+    },
   ];
+
+  const portalMetrics = [
+    ["Open Requests", "12"],
+    ["Active Tasks", "24"],
+    ["SOAR Cases", "6"],
+    ["Pending Approvals", "3"],
+  ];
+
+  const portalQueues = [
+    { title: "Suspicious identity reset burst", meta: "High severity • Identity", status: "triage" },
+    { title: "Endpoint beaconing review", meta: "Medium severity • Endpoint", status: "monitoring" },
+    { title: "Client report publication", meta: "Delivery • Due today", status: "review" },
+  ];
+
+  const portalPlaybooks = ["Identity triage", "Endpoint enrichment", "Phishing intake", "Ransomware precursor review"];
 
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono overflow-x-hidden">
@@ -42,6 +63,7 @@ export default function Lost0x01Site() {
           <nav className="hidden md:flex gap-6 text-sm uppercase tracking-wider">
             <a href="#about" className="hover:text-white transition">About</a>
             <a href="#projects" className="hover:text-white transition">Projects</a>
+            <a href="#portal-demo" className="hover:text-white transition">Portal Demo</a>
             <a href="#contact" className="hover:text-white transition">Contact</a>
           </nav>
         </div>
@@ -79,6 +101,13 @@ export default function Lost0x01Site() {
               className="px-6 py-3 rounded-2xl border border-cyan-400/40 text-cyan-200 hover:border-cyan-300 hover:text-white transition"
             >
               Launch Tracecoon Demo
+            </a>
+
+            <a
+              href="#portal-demo"
+              className="px-6 py-3 rounded-2xl border border-green-500/40 hover:border-green-300 hover:text-white transition"
+            >
+              Portal Demo
             </a>
 
             <a
@@ -183,8 +212,8 @@ export default function Lost0x01Site() {
             <a
               key={project.title}
               href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={project.link.startsWith("#") ? undefined : "_blank"}
+              rel={project.link.startsWith("#") ? undefined : "noopener noreferrer"}
               className="rounded-3xl border border-green-500/20 bg-zinc-950 p-6 hover:border-green-400 hover:-translate-y-1 transition duration-300 cursor-pointer block"
             >
               <div className="flex items-center justify-between mb-5">
@@ -214,6 +243,92 @@ export default function Lost0x01Site() {
               </div>
             </a>
           ))}
+        </div>
+      </section>
+
+      {/* Portal Demo */}
+      <section id="portal-demo" className="border-y border-green-500/10 bg-zinc-950/70">
+        <div className="max-w-6xl mx-auto px-6 py-24">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-green-500 mb-3">Interactive preview</p>
+              <h3 className="text-4xl font-bold text-white">Operations Portal Demo</h3>
+              <p className="text-green-200/75 mt-4 max-w-3xl leading-relaxed">
+                A sanitized public-facing view of the internal command center pattern: request intake, task pressure,
+                SOAR case queues, playbook catalog, approvals, documents, costs, and deliverable tracking — without
+                exposing private data or live automation hooks.
+              </p>
+            </div>
+            <a
+              href="https://github.com/lost0x01/public-portal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-3 rounded-2xl border border-green-400 bg-green-400 text-black font-bold hover:bg-white transition text-center"
+            >
+              View Demo Repo
+            </a>
+          </div>
+
+          <div className="rounded-3xl border border-green-500/25 bg-black shadow-2xl shadow-green-500/10 overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-4 px-5 py-4 border-b border-green-500/20 bg-zinc-900/90">
+              <div>
+                <p className="text-xs uppercase tracking-[0.22em] text-green-500">Operations Portal</p>
+                <h4 className="text-2xl font-bold text-white">Command Center</h4>
+              </div>
+              <div className="flex flex-wrap gap-2 text-xs uppercase tracking-wider">
+                {["Command", "Response", "Delivery"].map((tab) => (
+                  <span key={tab} className="rounded-full border border-green-500/30 px-3 py-1 bg-green-500/5 text-green-200">
+                    {tab}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-5 md:p-8 space-y-6">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {portalMetrics.map(([label, value]) => (
+                  <div key={label} className="rounded-2xl border border-green-500/20 bg-zinc-950 p-5">
+                    <p className="text-xs uppercase tracking-widest text-green-500">{label}</p>
+                    <p className="text-4xl font-black text-white mt-3">{value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-5">
+                <div className="rounded-2xl border border-green-500/20 bg-zinc-950 p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <h5 className="text-xl font-bold text-white">Work Needing Attention</h5>
+                    <span className="text-xs text-green-500">live-demo-data</span>
+                  </div>
+                  <div className="space-y-3">
+                    {portalQueues.map((item) => (
+                      <div key={item.title} className="rounded-2xl border border-green-500/15 bg-black/70 p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                        <div>
+                          <p className="text-white font-semibold">{item.title}</p>
+                          <p className="text-sm text-green-200/60">{item.meta}</p>
+                        </div>
+                        <span className="self-start md:self-center rounded-full border border-green-500/30 px-3 py-1 text-xs text-green-200 bg-green-500/10">
+                          {item.status}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-green-500/20 bg-zinc-950 p-5">
+                  <h5 className="text-xl font-bold text-white mb-4">SOAR Playbooks</h5>
+                  <div className="space-y-3">
+                    {portalPlaybooks.map((playbook, idx) => (
+                      <div key={playbook} className="flex items-center gap-3 rounded-xl border border-green-500/15 bg-black/70 p-3">
+                        <span className="grid h-8 w-8 place-items-center rounded-lg bg-green-400 text-black font-black">{idx + 1}</span>
+                        <span className="text-green-100">{playbook}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
