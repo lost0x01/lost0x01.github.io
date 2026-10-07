@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tracecoon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <a class="back-link" href="/">Back to lost0x01.com</a>
+    <div class="shell">
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Tracecoon</p>
+          <h1>Threat hunting with raccoon instincts.</h1>
+          <p class="lede">
+            Turn raw notes, suspicious indicators, and case fragments into a guided investigation board with
+            plain-language findings, a simple evidence map, and recommended first checks.
+          </p>
+          <div class="hero__actions">
+            <button id="loadSample" class="button button--primary">Load Sample Case</button>
+            <button id="clearCase" class="button button--ghost">Clear Workspace</button>
+          </div>
+          <label class="mode-toggle" for="juniorMode">
+            <input id="juniorMode" type="checkbox" checked>
+            <span>Junior mode</span>
+            <small>Explain terms, suggest tools, and show confidence guidance.</small>
+          </label>
+        </div>
+        <aside class="hero__panel">
+          <div class="mascot-card">
+            <div class="mascot-card__badge">masked analyst mode</div>
+            <h2>Caseboard</h2>
+            <ul>
+              <li>Pull out suspicious clues</li>
+              <li>Show how the clues connect</li>
+              <li>Suggest what to check next</li>
+              <li>Export a case summary</li>
+            </ul>
+          </div>
+        </aside>
+      </header>
+
+      <main class="workspace">
+        <section class="panel panel--input">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Step 1</p>
+              <h2>Paste your case notes</h2>
+            </div>
+            <button id="analyzeButton" class="button button--primary">Build Caseboard</button>
+          </div>
+          <div class="guide">
+            <div class="guide__step">
+              <strong>1.</strong>
+              <span>Paste anything you already have: alert notes, sandbox text, vendor write-up, or chat handoff.</span>
+            </div>
+            <div class="guide__step">
+              <strong>2.</strong>
+              <span>Tracecoon pulls out likely clues and groups them into easy next actions.</span>
+            </div>
+            <div class="guide__step">
+              <strong>3.</strong>
+              <span>Start with the quick triage checklist before diving into the graph.</span>
+            </div>
+          </div>
+          <label class="field">
+            <span>Case title</span>
+            <input id="caseTitle" type="text" placeholder="Suspicious OAuth app + staged exfil">
+          </label>
+          <label class="field">
+            <span>Source text</span>
+            <textarea
+              id="sourceText"
+              rows="16"
+              placeholder="Example: 'User approved a new OAuth app, then we saw logins from 185.220.101.47 and a scheduled task called OfficeTelemetryCache.'"
+            ></textarea>
+          </label>
+          <div class="hint-grid">
+            <article class="hint-card">
+              <h3>Good things to paste</h3>
+              <p>Alert notes, vendor blogs, IOC snippets, sandbox summaries, Slack handoff text, or a rough timeline.</p>
+            </article>
+            <article class="hint-card">
+              <h3>What Tracecoon gives back</h3>
+              <p>A short case summary, suspicious indicators, a simple triage list, behavior guesses, and a visual connection map.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel panel--summary">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Step 2</p>
+              <h2 id="summaryTitle">No active case</h2>
+            </div>
+            <button id="exportButton" class="button button--ghost">Export JSON</button>
+          </div>
+          <div class="stats" id="stats"></div>
+          <div class="summary-grid">
+            <article class="summary-card">
+              <h3>Plain-language summary</h3>
+              <p id="briefText">Load a case to generate a short investigation brief.</p>
+            </article>
+            <article class="summary-card">
+              <h3>Start here first</h3>
+              <ol id="actionsList" class="action-list"></ol>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel panel--triage">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Step 3</p>
+              <h2>Quick triage checklist</h2>
+            </div>
+          </div>
+          <div id="triageChecklist" class="triage-list"></div>
+        </section>
+
+        <section class="panel panel--next-tool">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Junior guide</p>
+              <h2>What tool should I open next?</h2>
+            </div>
+          </div>
+          <div id="toolGuide" class="tool-guide"></div>
+        </section>
+
+        <section class="panel panel--graph">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Step 4</p>
+              <h2>Evidence map</h2>
+            </div>
+          </div>
+          <p class="panel__note">Use this after the checklist. It shows what Tracecoon thinks is connected, not proven facts.</p>
+          <div id="graphLegend" class="legend"></div>
+          <div class="graph-wrap">
+            <svg id="graph" viewBox="0 0 920 420" aria-label="Tracecoon entity graph"></svg>
+          </div>
+        </section>
+
+        <section class="panel panel--timeline">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Step 5</p>
+              <h2>Likely activity flow</h2>
+            </div>
+          </div>
+          <div id="timeline" class="timeline"></div>
+        </section>
+
+        <section class="panel panel--intel">
+          <div class="panel__header">
+            <div>
+              <p class="panel__eyebrow">Reference</p>
+              <h2>Findings and explanations</h2>
+            </div>
+          </div>
+          <div class="intel-grid">
+            <article class="intel-card">
+              <h3>Suspicious clues</h3>
+              <ul id="indicatorList" class="tag-list"></ul>
+            </article>
+            <article class="intel-card">
+              <h3>Behavior labels</h3>
+              <p class="intel-card__note">These are MITRE ATT&amp;CK technique guesses to help with tagging and search.</p>
+              <ul id="techniqueList" class="technique-list"></ul>
+            </article>
+            <article class="intel-card">
+              <h3>What to search for</h3>
+              <ul id="huntList" class="hunt-list"></ul>
+            </article>
+          </div>
+          <div id="glossary" class="glossary"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
