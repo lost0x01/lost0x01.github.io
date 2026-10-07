@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Operations Portal Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <a class="back-link" href="/">Back to lost0x01.com</a>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sanitized demo workspace</p>
+          <h1>Operations Portal</h1>
+          <p>Command center preview for requests, task pressure, SOAR response flow, and client delivery tracking.</p>
+        </div>
+        <div class="topbar__actions">
+          <button id="seedDemo" class="button button--primary" type="button">Load Demo Data</button>
+          <button id="clearDemo" class="button button--secondary" type="button">Reset</button>
+        </div>
+      </header>
+
+      <nav class="tabs grouped-nav" aria-label="Primary portal navigation">
+        <section class="nav-group" aria-label="Command navigation group">
+          <div class="nav-group-label">Command</div>
+          <div class="nav-group-items">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#requests">Requests</a>
+            <a href="#tasks">Tasks</a>
+          </div>
+        </section>
+        <section class="nav-group" aria-label="Response navigation group">
+          <div class="nav-group-label">Response</div>
+          <div class="nav-group-items">
+            <a href="#soar">SOAR</a>
+            <a href="#cases">Cases</a>
+            <a href="#playbooks">Playbooks</a>
+            <a href="#approvals">Approvals</a>
+          </div>
+        </section>
+        <section class="nav-group" aria-label="Delivery navigation group">
+          <div class="nav-group-label">Delivery</div>
+          <div class="nav-group-items">
+            <a href="#documents">Documents</a>
+            <a href="#costs">Costs</a>
+            <a href="#deliverables">Deliverables</a>
+          </div>
+        </section>
+      </nav>
+
+      <main>
+        <section id="dashboard" class="grid metrics" aria-label="Dashboard metrics">
+          <article><span>Open requests</span><strong id="metricRequests">12</strong></article>
+          <article><span>Active tasks</span><strong id="metricTasks">24</strong></article>
+          <article><span>SOAR cases</span><strong id="metricCases">6</strong></article>
+          <article><span>Pending approvals</span><strong id="metricApprovals">3</strong></article>
+        </section>
+
+        <section class="panel hero-panel">
+          <div class="hero-copy">
+            <p class="panel-eyebrow">Operator view</p>
+            <h2>See what needs attention first.</h2>
+            <p class="muted">This static public demo mirrors the portal styling without auth, private data, or live automation hooks. Use it to show the workflow shape: intake → execute → review → deliver.</p>
+          </div>
+          <div class="workflow-strip" aria-label="Workflow stages">
+            <div><span>Intake</span><strong>5</strong></div>
+            <div><span>Execute</span><strong>11</strong></div>
+            <div><span>Review</span><strong>4</strong></div>
+            <div><span>Deliver</span><strong>3</strong></div>
+          </div>
+        </section>
+
+        <section id="tasks" class="panel panel-wide">
+          <div class="section-title"><h2>Work needing attention</h2><span class="muted">Sorted by blocked, priority, and age</span></div>
+          <div id="focusQueue" class="focus-queue"></div>
+        </section>
+
+        <section id="requests" class="panel">
+          <div class="section-title"><h2>Request intake</h2><span class="muted">Safe demo form</span></div>
+          <form id="requestForm" class="form-grid">
+            <input id="requester" placeholder="Requester" required>
+            <input id="category" placeholder="Category" required>
+            <input id="summary" placeholder="Summary" required>
+            <button type="submit">Add request</button>
+          </form>
+          <div class="table-wrap"><table><thead><tr><th>Requester</th><th>Category</th><th>Summary</th><th>Status</th></tr></thead><tbody id="requestRows"></tbody></table></div>
+        </section>
+
+        <section id="soar" class="panel">
+          <div class="section-title"><h2>SOAR command center</h2><span class="pill">Sanitized</span></div>
+          <p class="muted">Cross-cutting response queues: open cases, active playbook runs, and approvals that require a human checkpoint.</p>
+          <div class="soar-grid">
+            <article><span>Open cases</span><strong>6</strong><small>2 high severity</small></article>
+            <article><span>Active runs</span><strong>8</strong><small>3 waiting on enrichment</small></article>
+            <article><span>Approvals</span><strong>3</strong><small>1 critical action hold</small></article>
+          </div>
+        </section>
+
+        <section id="cases" class="panel panel-wide">
+          <div class="section-title"><h2>Cases</h2><span class="muted">Sample case workspace layout</span></div>
+          <div class="table-wrap"><table><thead><tr><th>ID</th><th>Title</th><th>Type</th><th>Severity</th><th>Status</th><th>Latest event</th></tr></thead><tbody id="caseRows"></tbody></table></div>
+        </section>
+
+        <section id="playbooks" class="panel">
+          <div class="section-title"><h2>Playbooks</h2><span class="muted">Registry preview</span></div>
+          <div id="playbookCards" class="card-list"></div>
+        </section>
+
+        <section id="approvals" class="panel">
+          <div class="section-title"><h2>Approvals</h2><span class="muted">Human-in-the-loop holds</span></div>
+          <div id="approvalCards" class="card-list"></div>
+        </section>
+
+        <section id="documents" class="panel panel-wide">
+          <div class="section-title"><h2>Documents</h2><span class="muted">Final deliverables only in the real portal</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Document</th><th>Type</th><th>Updated</th><th>Access</th></tr></thead><tbody id="documentRows"></tbody></table></div>
+        </section>
+
+        <section id="costs" class="panel">
+          <div class="section-title"><h2>AI costs</h2><span class="muted">Manual/import/sync lanes</span></div>
+          <div class="cost-chart" aria-label="Demo cost chart"><span style="height:38%"></span><span style="height:64%"></span><span style="height:44%"></span><span style="height:82%"></span><span style="height:56%"></span></div>
+        </section>
+
+        <section id="deliverables" class="panel">
+          <div class="section-title"><h2>Deliverables</h2><span class="muted">Review → publish → archive</span></div>
+          <div id="deliverableCards" class="card-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

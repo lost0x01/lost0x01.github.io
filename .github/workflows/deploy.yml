@@ -6,7 +6,10 @@ on:
       - main
     paths:
       - 'src/**'
+      - 'tracecoon/**'
+      - 'portal/**'
       - 'index.html'
+      - 'CNAME'
       - 'package*.json'
       - 'vite.config.js'
       - 'tailwind.config.js'
@@ -54,21 +57,14 @@ jobs:
           npm run build
           mv /tmp/lost0x01-pages-index.html index.html
 
-      - name: Copy built assets to /assets and update index.html
+      - name: Prepare static Pages bundle
         run: |
-          rm -f assets/index-*.js assets/index-*.css
-          cp dist/assets/index-*.js assets/
-          cp dist/assets/index-*.css assets/
-          JS_FILE=$(ls dist/assets/index-*.js | xargs basename)
-          CSS_FILE=$(ls dist/assets/index-*.css | xargs basename)
-          sed -i "s|src=\"/assets/index-[^\"]*\.js\"|src=\"/assets/${JS_FILE}\"|g" index.html
-          sed -i "s|href=\"/assets/index-[^\"]*\.css\"|href=\"/assets/${CSS_FILE}\"|g" index.html
-          echo "Updated index.html to reference: $JS_FILE and $CSS_FILE"
+          cp CNAME dist/CNAME
+          cp -R tracecoon dist/tracecoon
+          cp -R portal dist/portal
 
-      - name: Commit and push updated assets
+      - name: Deploy dist to gh-pages
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/ index.html
-          git diff --staged --quiet || git commit -m "chore: rebuild assets [skip ci]"
-          git push
+          npx gh-pages -d dist -u "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
